@@ -101,11 +101,11 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [collectStatus, setCollectStatus] = useState<string | null>(null);
   const [analyzeStatus, setAnalyzeStatus] = useState<string | null>(null);
-  const [metric, setMetric] = useState<"mae_temp" | "mae_precip" | "mae_wind">("mae_temp");
+  const [metric, setMetric] = useState<"mae_temp" | "mae_precip" | "mae_wind">("mae_precip");
   const [tab, setTab] = useState<"accuracy" | "consensus">("accuracy");
   const [consensus, setConsensus] = useState<ConsensusGroup[]>([]);
   const [consensusHorizon, setConsensusHorizon] = useState(1);
-  const [consensusMetric, setConsensusMetric] = useState<"temp_mean" | "temp_max" | "precip_mm" | "wind_ms">("temp_mean");
+  const [consensusMetric, setConsensusMetric] = useState<"temp_mean" | "temp_max" | "precip_mm" | "wind_ms">("precip_mm");
 
   const loadData = useCallback(async () => {
     setLoading(true);
