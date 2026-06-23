@@ -2,7 +2,7 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "node --experimental-sqlite .next/standalone/server.js"
+startCommand = "node_modules/.bin/next start"
 healthcheckPath = "/api/health"
 healthcheckTimeout = 60
 restartPolicyType = "on_failure"
@@ -10,3 +10,4 @@ restartPolicyType = "on_failure"
 [environments.production.variables]
 PORT = "3000"
 HOSTNAME = "0.0.0.0"
+NODE_OPTIONS = "--experimental-sqlite"
