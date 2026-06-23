@@ -8,6 +8,4 @@ healthcheckTimeout = 60
 restartPolicyType = "on_failure"
 
 [environments.production.variables]
-PORT = "3000"
-HOSTNAME = "0.0.0.0"
 NODE_OPTIONS = "--experimental-sqlite"
