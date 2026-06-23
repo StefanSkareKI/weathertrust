@@ -3,8 +3,8 @@ builder = "nixpacks"
 
 [deploy]
 startCommand = "node --experimental-sqlite .next/standalone/server.js"
-healthcheckPath = "/api/data"
-healthcheckTimeout = 30
+healthcheckPath = "/api/health"
+healthcheckTimeout = 60
 restartPolicyType = "on_failure"
 
 [environments.production.variables]
