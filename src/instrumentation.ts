@@ -1,13 +1,3 @@
-function msUntilNextUtc(hour: number, minute = 0): number {
-  const now = new Date();
-  const next = new Date();
-  next.setUTCHours(hour, minute, 0, 0);
-  if (next.getTime() <= now.getTime()) {
-    next.setUTCDate(next.getUTCDate() + 1);
-  }
-  return next.getTime() - now.getTime();
-}
-
 export async function register() {
   if (process.env.NEXT_RUNTIME !== "nodejs") return;
 
@@ -29,17 +19,10 @@ export async function register() {
     }
   }
 
-  function scheduleDailyAt(hour: number, minute = 0) {
-    const delay = msUntilNextUtc(hour, minute);
-    const nextRun = new Date(Date.now() + delay).toISOString();
-    console.log(`[weathertrust] Next run scheduled for ${nextRun}`);
-    setTimeout(() => {
-      runDailyJob().finally(() => scheduleDailyAt(hour, minute));
-    }, delay);
-  }
-
-  // Schedule at 05:00 UTC every day (07:00 CEST / 06:00 CET)
-  scheduleDailyAt(5, 0);
+  const intervalHours = Math.max(1, Number(process.env.POLL_INTERVAL_HOURS ?? 24));
+  const intervalMs = intervalHours * 60 * 60 * 1000;
+  console.log(`[weathertrust] Poll interval: every ${intervalHours}h`);
+  setInterval(runDailyJob, intervalMs);
 
   // Run once 10s after startup if today has no data yet
   setTimeout(async () => {
