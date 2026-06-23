@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "start:prod": "node --experimental-sqlite .next/standalone/server.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -18,8 +19,11 @@
     "tailwind-merge": "^2.3.0",
     "lucide-react": "^0.400.0"
   },
+  "engines": {
+    "node": ">=22.5.0"
+  },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^22",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
