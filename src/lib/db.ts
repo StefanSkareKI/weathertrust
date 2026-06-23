@@ -98,7 +98,7 @@ export function insertForecasts(forecasts: Forecast[]) {
   `);
   db.exec("BEGIN");
   try {
-    for (const row of forecasts) stmt.run(row as unknown as Record<string, unknown>);
+    for (const row of forecasts) stmt.run(row as Record<string, string | number | null>);
     db.exec("COMMIT");
   } catch (e) {
     db.exec("ROLLBACK");
@@ -111,7 +111,7 @@ export function upsertObservation(obs: Observation) {
   db.prepare(`
     INSERT OR REPLACE INTO observations (date, temp_max, temp_min, temp_mean, precip_mm, wind_ms)
     VALUES (@date, @temp_max, @temp_min, @temp_mean, @precip_mm, @wind_ms)
-  `).run(obs as unknown as Record<string, unknown>);
+  `).run(obs as Record<string, string | number | null>);
 }
 
 export function upsertAccuracy(acc: Accuracy) {
@@ -119,7 +119,7 @@ export function upsertAccuracy(acc: Accuracy) {
   db.prepare(`
     INSERT OR REPLACE INTO accuracy (source, horizon_days, computed_at, mae_temp, mae_precip, mae_wind, sample_count)
     VALUES (@source, @horizon_days, @computed_at, @mae_temp, @mae_precip, @mae_wind, @sample_count)
-  `).run(acc as unknown as Record<string, unknown>);
+  `).run(acc as Record<string, string | number | null>);
 }
 
 export function getRecentForecasts(days = 14): Forecast[] {
